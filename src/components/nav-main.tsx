@@ -1,6 +1,6 @@
 "use client"
 import { ChevronRight, type LucideIcon } from "lucide-react"
-import { NavLink } from "react-router-dom"
+import { NavLink, useLocation } from "react-router-dom"
 
 import {
   Collapsible,
@@ -20,10 +20,10 @@ import {
 
 type SimpleItem = {
   title?: string
-  name?: string               // support your "Dashboard" shape
+  name?: string
   url: string
   icon?: LucideIcon
-  isActive?: boolean          // optional manual control
+  isActive?: boolean // optional manual control
 }
 
 type ParentItem = SimpleItem & {
@@ -31,6 +31,8 @@ type ParentItem = SimpleItem & {
 }
 
 export function NavMain({ items }: { items: ParentItem[] }) {
+  const location = useLocation()
+
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Platform</SidebarGroupLabel>
@@ -41,36 +43,43 @@ export function NavMain({ items }: { items: ParentItem[] }) {
           const hasChildren = Array.isArray(item.items) && item.items.length > 0
 
           if (!hasChildren) {
-            // 👉 Simple link (NO DROPDOWN)
+            // Simple link (no dropdown)
             return (
-              <SidebarMenuItem key={label}>
-                <SidebarMenuButton asChild tooltip={label} isActive={item.isActive}>
-                  <NavLink
-                    to={item.url}
-                    className={({ isActive }) =>
-                      // let router control active state unless isActive is forced
-                      item.isActive ?? isActive ? "data-[active=true]" : undefined
-                    }
-                  >
-                    {item.icon && <item.icon />}
-                    <span>{label}</span>
-                  </NavLink>
-                </SidebarMenuButton>
+              <SidebarMenuItem key={item.url || label}>
+                <NavLink to={item.url} end>
+                  {({ isActive }) => (
+                    <SidebarMenuButton
+                      asChild
+                      tooltip={label}
+                      // router controls active unless manually forced
+                      isActive={item.isActive ?? isActive}
+                    >
+                      <div className="flex items-center gap-2">
+                        {item.icon && <item.icon />}
+                        <span>{label}</span>
+                      </div>
+                    </SidebarMenuButton>
+                  )}
+                </NavLink>
               </SidebarMenuItem>
             )
           }
 
-          // 👇 Collapsible (DROPDOWN) for items with children
+          // Collapsible (with children)
+          const childUrls = item.items?.map((s) => s.url) ?? []
+          const isOnChild = childUrls.some((u) => location.pathname.startsWith(u))
+          const openByDefault = item.isActive ?? isOnChild
+
           return (
             <Collapsible
-              key={label}
+              key={item.url || label}
               asChild
-              defaultOpen={item.isActive}
+              defaultOpen={openByDefault}
               className="group/collapsible"
             >
               <SidebarMenuItem>
                 <CollapsibleTrigger asChild>
-                  <SidebarMenuButton tooltip={label}>
+                  <SidebarMenuButton tooltip={label} /* parent button not a link */>
                     {item.icon && <item.icon />}
                     <span>{label}</span>
                     <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
@@ -80,12 +89,16 @@ export function NavMain({ items }: { items: ParentItem[] }) {
                 <CollapsibleContent>
                   <SidebarMenuSub>
                     {item.items?.map((sub) => (
-                      <SidebarMenuSubItem key={sub.title}>
-                        <SidebarMenuSubButton asChild>
-                          <NavLink to={sub.url}>
-                            <span>{sub.title}</span>
-                          </NavLink>
-                        </SidebarMenuSubButton>
+                      <SidebarMenuSubItem key={sub.url || sub.title}>
+                        <NavLink to={sub.url} end>
+                          {({ isActive }) => (
+                            <SidebarMenuSubButton asChild isActive={isActive}>
+                              <div>
+                                <span>{sub.title}</span>
+                              </div>
+                            </SidebarMenuSubButton>
+                          )}
+                        </NavLink>
                       </SidebarMenuSubItem>
                     ))}
                   </SidebarMenuSub>

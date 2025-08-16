@@ -19,7 +19,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 
-// This is sample data.
+// AppSidebar.tsx
 const data = {
   user: {
     name: "darren",
@@ -36,38 +36,39 @@ const data = {
   navMain: [
     {
       name: "Dashboard",
-      url: "#",
+      url: "/app",            // ✅ now routes to Dashboard
       icon: LayoutDashboard,
     },
     {
       name: "Case List",
-      url: "#",
+      url: "/cases",      // ✅ CaseList page
       icon: ClipboardList,
     },
     {
       name: "Patients List",
-      url: "#",
+      url: "/patient",   // ✅ Patients page
       icon: Users,
     },
     {
       name: "Doctor List",
-      url: "#",
+      url: "/doctors",    // ✅ Doctors page
       icon: Stethoscope,
     },
     {
       title: "Settings",
-      url: "#",
+      url: "/settings",   // ✅ parent route (optional)
       icon: Settings2,
       items: [
-        { title: "Department", url: "#" },
-        { title: "Branch", url: "#" },
-        { title: "Package", url: "#" },
-        { title: "Procedures", url: "#" },
-        { title: "Users List", url: "#" },
+        { title: "Department", url: "/settings/department" },
+        { title: "Branch", url: "/settings/branch" },
+        { title: "Package", url: "/settings/package" },
+        { title: "Procedures", url: "/settings/procedures" },
+        { title: "Users List", url: "/settings/users" },
       ],
     },
   ],
 }
+
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (

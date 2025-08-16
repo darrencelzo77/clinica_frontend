@@ -50,6 +50,11 @@ const data = {
       icon: Users,
     },
     {
+      name: "Procedures",
+      url: "/procedure",   // ✅ Patients page
+      icon: Users,
+    },
+    {
       name: "Doctor List",
       url: "/doctors",    // ✅ Doctors page
       icon: Stethoscope,

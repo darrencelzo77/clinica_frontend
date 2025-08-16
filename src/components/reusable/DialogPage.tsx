@@ -31,7 +31,15 @@ export function DialogPage({ children }: { children: ReactNode }) {
 
                 <div className="grid gap-4">
                     <div className="grid gap-2">
-                        <Label htmlFor="name">Name</Label>
+                        <Label htmlFor="name">First Name</Label>
+                        <Input id="name" name="name" placeholder="Patient name" />
+                    </div>
+                    <div className="grid gap-2">
+                        <Label htmlFor="name">Middle Name</Label>
+                        <Input id="name" name="name" placeholder="Patient name" />
+                    </div>
+                    <div className="grid gap-2">
+                        <Label htmlFor="name">Last Name</Label>
                         <Input id="name" name="name" placeholder="Patient name" />
                     </div>
                     <div className="grid gap-2">

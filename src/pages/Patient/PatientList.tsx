@@ -9,7 +9,6 @@ const PatientList = () => {
         <div className="space-y-4">
             <div className="flex items-center justify-between">
                 <h2 className="text-xl font-semibold">Patient List</h2>
-                {/* The button that opens the dialog lives INSIDE DialogPage */}
                 <DialogPage>
                     <Button size="sm">
                         <IconGitBranch className="mr-2 h-4 w-4" />

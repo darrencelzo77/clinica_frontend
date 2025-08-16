@@ -6,6 +6,7 @@ import LoginPage from "@/components/reusable/LoginPage";
 import SidebarPage from "@/components/reusable/SidebarPage";
 import CaseList from "@/pages/Cases/CaseList";
 import PatientList from "@/pages/Patient/PatientList";
+import Procedure from "@/pages/Procedures/Procedure";
 
 // pages (import what you actually have)
 // import Patients from "@/components/app/Patients";
@@ -35,6 +36,7 @@ const routes: RouteObject[] = [
                     { path: "app", element: <div>Not Found</div> },   // /app
                     { path: "cases", element: <CaseList /> },  // /cases
                     { path: "patient", element: <PatientList /> },  // /cases
+                    { path: "procedure", element: <Procedure /> },  // /cases
 
                     // add the rest when ready:
                     // { path: "patients", element: <Patients /> },        // /patients

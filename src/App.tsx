@@ -1,10 +1,7 @@
-// import LoginPage from "./components/reusable/LoginPage"
-import SidebarPage from "./components/reusable/SidebarPage"
+// src/App.tsx
+import { useRoutes } from "react-router-dom";
+import routes from "./routes/routeList";
 
-function App() {
-  return (
-    <SidebarPage />
-  )
+export default function App() {
+  return useRoutes(routes);
 }
-
-export default App

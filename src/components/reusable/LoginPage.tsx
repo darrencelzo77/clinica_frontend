@@ -10,7 +10,8 @@ export default function LoginPage() {
                     <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
                         <GalleryVerticalEnd className="size-4" />
                     </div>
-                    St. Albert Medical & Diagnostic Clinic
+                    {/* St. Albert Medical & Diagnostic Clinic */}
+                    Click Login to go to the dashboard
                 </a>
                 <LoginForm />
             </div>

@@ -2,11 +2,15 @@ import * as React from "react"
 import {
   LayoutDashboard,
   ClipboardList,
-  Users,
   Stethoscope,
   GalleryVerticalEnd,
   Settings2,
+  FileCog,        // for Procedures
+  Package,        // for Packages
+  UserRound,      // for Patients (less generic than Users group icon)
+  Key
 } from "lucide-react"
+
 
 import { NavMain } from "@/components/nav-main"
 import { NavUser } from "@/components/nav-user"
@@ -36,42 +40,51 @@ const data = {
   navMain: [
     {
       name: "Dashboard",
-      url: "/app",            // ✅ now routes to Dashboard
+      url: "/app",
       icon: LayoutDashboard,
     },
     {
       name: "Case List",
-      url: "/cases",      // ✅ CaseList page
+      url: "/cases",
       icon: ClipboardList,
     },
     {
       name: "Patients List",
-      url: "/patient",   // ✅ Patients page
-      icon: Users,
+      url: "/patient",
+      icon: UserRound,       // 👤 single person
     },
     {
       name: "Procedures",
-      url: "/procedure",   // ✅ Patients page
-      icon: Users,
+      url: "/procedure",
+      icon: FileCog,         // ⚙️ file/settings style
+    },
+    {
+      name: "Packages",
+      url: "/packages",
+      icon: Package,         // 📦 package box
     },
     {
       name: "Doctor List",
-      url: "/doctors",    // ✅ Doctors page
-      icon: Stethoscope,
+      url: "/doctors",
+      icon: Stethoscope,     // 🩺
+    },
+    {
+      name: "Generate External Access",
+      url: "/doctors",
+      icon: Key,     // 🩺
     },
     {
       title: "Settings",
-      url: "/settings",   // ✅ parent route (optional)
+      url: "/settings",
       icon: Settings2,
       items: [
         { title: "Department", url: "/settings/department" },
         { title: "Branch", url: "/settings/branch" },
-        { title: "Package", url: "/settings/package" },
-        { title: "Procedures", url: "/settings/procedures" },
         { title: "Users List", url: "/settings/users" },
       ],
     },
-  ],
+  ]
+
 }
 
 

@@ -7,15 +7,7 @@ import SidebarPage from "@/components/reusable/SidebarPage";
 import CaseList from "@/pages/Cases/CaseList";
 import PatientList from "@/pages/Patient/PatientList";
 import Procedure from "@/pages/Procedures/Procedure";
-
-// pages (import what you actually have)
-// import Patients from "@/components/app/Patients";
-// import Doctors from "@/components/app/Doctors";
-// import DeptSettings from "@/components/app/settings/Department";
-// import BranchSettings from "@/components/app/settings/Branch";
-// import PackageSettings from "@/components/app/settings/Package";
-// import ProceduresSettings from "@/components/app/settings/Procedures";
-// import UsersSettings from "@/components/app/settings/Users";
+import Dashboard from "@/pages/Dashboard/Dashboard";
 
 const routes: RouteObject[] = [
     // auth route (outside sidebar)
@@ -33,7 +25,7 @@ const routes: RouteObject[] = [
                 path: "",
                 element: <SidebarPage />,
                 children: [
-                    { path: "app", element: <div>Not Found</div> },   // /app
+                    { path: "app", element: <Dashboard/> },   // /app
                     { path: "cases", element: <CaseList /> },  // /cases
                     { path: "patient", element: <PatientList /> },  // /cases
                     { path: "procedure", element: <Procedure /> },  // /cases

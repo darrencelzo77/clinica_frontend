@@ -36,120 +36,68 @@ import {
     TableRow,
 } from "@/components/ui/table"
 
-const data: Payment[] = [
+// ------------------
+// Mock Data
+// ------------------
+const data: CaseRow[] = [
     {
-        id: "m5gr84i9",
-        amount: 316,
-        status: "success",
-        email: "ken99@example.com",
+        id: "1",
+        caseNumber: "CASE-1001",
+        patientName: "Alice Santos",
+        doctorAssigned: "Dr. Lim",
+        processedBy: "Nurse Joy",
+        status: "open",
     },
     {
-        id: "3u1reuv4",
-        amount: 242,
-        status: "success",
-        email: "Abe45@example.com",
+        id: "2",
+        caseNumber: "CASE-1002",
+        patientName: "Ben Cruz",
+        doctorAssigned: "Dr. Reyes",
+        processedBy: "Nurse Faith",
+        status: "in-progress",
     },
     {
-        id: "derv1ws0",
-        amount: 837,
-        status: "processing",
-        email: "Monserrat44@example.com",
+        id: "3",
+        caseNumber: "CASE-1003",
+        patientName: "Cheska Lim",
+        doctorAssigned: "Dr. Tan",
+        processedBy: "Admin John",
+        status: "closed",
     },
     {
-        id: "5kma53ae",
-        amount: 874,
-        status: "success",
-        email: "Silas22@example.com",
+        id: "3",
+        caseNumber: "CASE-1004",
+        patientName: "Cheska Lim",
+        doctorAssigned: "Dr. Darren",
+        processedBy: "Admin John",
+        status: "closed",
     },
     {
-        id: "bhqecj4p",
-        amount: 721,
-        status: "failed",
-        email: "carmella@example.com",
+        id: "4",
+        caseNumber: "CASE-1005",
+        patientName: "Alfredo Lim",
+        doctorAssigned: "Dr. G",
+        processedBy: "Admin John",
+        status: "closed",
     },
-    {
-        id: "bhqecj4p",
-        amount: 721,
-        status: "failed",
-        email: "carmella@example.com",
-    },
-    {
-        id: "bhqecj4p",
-        amount: 721,
-        status: "failed",
-        email: "carmella@example.com",
-    },
-    {
-        id: "bhqecj4p",
-        amount: 721,
-        status: "failed",
-        email: "carmella@example.com",
-    },
-    {
-        id: "bhqecj4p",
-        amount: 721,
-        status: "failed",
-        email: "carmella@example.com",
-    },
-    {
-        id: "bhqecj4p",
-        amount: 721,
-        status: "failed",
-        email: "carmella@example.com",
-    },
-    {
-        id: "bhqecj4p",
-        amount: 721,
-        status: "failed",
-        email: "carmella@example.com",
-    },
-    {
-        id: "bhqecj4p",
-        amount: 721,
-        status: "failed",
-        email: "carmella@example.com",
-    },
-    {
-        id: "bhqecj4p",
-        amount: 721,
-        status: "failed",
-        email: "carmella@example.com",
-    },
-    {
-        id: "bhqecj4p",
-        amount: 721,
-        status: "failed",
-        email: "carmella@example.com",
-    },
-    {
-        id: "bhqecj4p",
-        amount: 721,
-        status: "failed",
-        email: "carmella@example.com",
-    },
-    {
-        id: "bhqecj4p",
-        amount: 721,
-        status: "failed",
-        email: "carmella@example.com",
-    },
-    {
-        id: "bhqecj4p",
-        amount: 721,
-        status: "failed",
-        email: "carmella@example.com",
-    },
-
 ]
 
-export type Payment = {
+// ------------------
+// Type
+// ------------------
+export type CaseRow = {
     id: string
-    amount: number
-    status: "pending" | "processing" | "success" | "failed"
-    email: string
+    caseNumber: string
+    patientName: string
+    doctorAssigned: string
+    processedBy: string
+    status: "open" | "in-progress" | "closed"
 }
 
-export const columns: ColumnDef<Payment>[] = [
+// ------------------
+// Columns
+// ------------------
+export const columns: ColumnDef<CaseRow>[] = [
     {
         id: "select",
         header: ({ table }) => (
@@ -173,6 +121,34 @@ export const columns: ColumnDef<Payment>[] = [
         enableHiding: false,
     },
     {
+        accessorKey: "caseNumber",
+        header: ({ column }) => (
+            <Button
+                variant="ghost"
+                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            >
+                Case #
+                <ArrowUpDown className="ml-2 h-4 w-4" />
+            </Button>
+        ),
+        cell: ({ row }) => <div className="font-mono">{row.getValue("caseNumber")}</div>,
+    },
+    {
+        accessorKey: "patientName",
+        header: "Patient Name",
+        cell: ({ row }) => <div>{row.getValue("patientName")}</div>,
+    },
+    {
+        accessorKey: "doctorAssigned",
+        header: "Doctor Assigned",
+        cell: ({ row }) => <div>{row.getValue("doctorAssigned")}</div>,
+    },
+    {
+        accessorKey: "processedBy",
+        header: "Processed By",
+        cell: ({ row }) => <div>{row.getValue("processedBy")}</div>,
+    },
+    {
         accessorKey: "status",
         header: "Status",
         cell: ({ row }) => (
@@ -180,40 +156,10 @@ export const columns: ColumnDef<Payment>[] = [
         ),
     },
     {
-        accessorKey: "email",
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    Email
-                    <ArrowUpDown />
-                </Button>
-            )
-        },
-        cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
-    },
-    {
-        accessorKey: "amount",
-        header: () => <div className="text-right">Amount</div>,
-        cell: ({ row }) => {
-            const amount = parseFloat(row.getValue("amount"))
-
-            // Format the amount as a dollar amount
-            const formatted = new Intl.NumberFormat("en-US", {
-                style: "currency",
-                currency: "USD",
-            }).format(amount)
-
-            return <div className="text-right font-medium">{formatted}</div>
-        },
-    },
-    {
         id: "actions",
         enableHiding: false,
         cell: ({ row }) => {
-            const payment = row.original
+            const caseRow = row.original
 
             return (
                 <DropdownMenu>
@@ -224,17 +170,15 @@ export const columns: ColumnDef<Payment>[] = [
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Request Forms</DropdownMenuLabel>
+                        <DropdownMenuLabel>Case Actions</DropdownMenuLabel>
                         <DropdownMenuItem
-                            onClick={() => navigator.clipboard.writeText(payment.id)}
+                            onClick={() => navigator.clipboard.writeText(caseRow.caseNumber)}
                         >
-                            View History
+                            Copy Case #
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>ECG Request Form</DropdownMenuItem>
-                        <DropdownMenuItem>Laboratory Request Form</DropdownMenuItem>
-                        <DropdownMenuItem>Ultrasound Request Form</DropdownMenuItem>
-                        <DropdownMenuItem>2D Echo Request Form</DropdownMenuItem>
+                        <DropdownMenuItem>View Details</DropdownMenuItem>
+                        <DropdownMenuItem>Edit Case</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             )
@@ -242,7 +186,10 @@ export const columns: ColumnDef<Payment>[] = [
     },
 ]
 
-export function TableNew() {
+// ------------------
+// Component
+// ------------------
+export function TableCase() {
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
         []
@@ -274,10 +221,10 @@ export function TableNew() {
         <div className="w-full">
             <div className="flex items-center py-4">
                 <Input
-                    placeholder="Filter emails..."
-                    value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+                    placeholder="Filter patient name..."
+                    value={(table.getColumn("patientName")?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
-                        table.getColumn("email")?.setFilterValue(event.target.value)
+                        table.getColumn("patientName")?.setFilterValue(event.target.value)
                     }
                     className="max-w-sm"
                 />
@@ -291,20 +238,16 @@ export function TableNew() {
                         {table
                             .getAllColumns()
                             .filter((column) => column.getCanHide())
-                            .map((column) => {
-                                return (
-                                    <DropdownMenuCheckboxItem
-                                        key={column.id}
-                                        className="capitalize"
-                                        checked={column.getIsVisible()}
-                                        onCheckedChange={(value) =>
-                                            column.toggleVisibility(!!value)
-                                        }
-                                    >
-                                        {column.id}
-                                    </DropdownMenuCheckboxItem>
-                                )
-                            })}
+                            .map((column) => (
+                                <DropdownMenuCheckboxItem
+                                    key={column.id}
+                                    className="capitalize"
+                                    checked={column.getIsVisible()}
+                                    onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                                >
+                                    {column.id}
+                                </DropdownMenuCheckboxItem>
+                            ))}
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
@@ -313,18 +256,16 @@ export function TableNew() {
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
-                                {headerGroup.headers.map((header) => {
-                                    return (
-                                        <TableHead key={header.id}>
-                                            {header.isPlaceholder
-                                                ? null
-                                                : flexRender(
-                                                    header.column.columnDef.header,
-                                                    header.getContext()
-                                                )}
-                                        </TableHead>
-                                    )
-                                })}
+                                {headerGroup.headers.map((header) => (
+                                    <TableHead key={header.id}>
+                                        {header.isPlaceholder
+                                            ? null
+                                            : flexRender(
+                                                header.column.columnDef.header,
+                                                header.getContext()
+                                            )}
+                                    </TableHead>
+                                ))}
                             </TableRow>
                         ))}
                     </TableHeader>
@@ -337,10 +278,7 @@ export function TableNew() {
                                 >
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell key={cell.id}>
-                                            {flexRender(
-                                                cell.column.columnDef.cell,
-                                                cell.getContext()
-                                            )}
+                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}
                                 </TableRow>

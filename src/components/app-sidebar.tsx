@@ -44,7 +44,22 @@ const data = {
       icon: LayoutDashboard,
     },
     {
-      name: "Case List",
+      name: "Queue Dashboard",
+      url: "/app",
+      icon: LayoutDashboard,
+    },
+    {
+      name: "Add Patient",
+      url: "/add-patient",
+      icon: UserRound,       // 👤 single person
+    },
+    {
+      name: "Patient Queue",
+      url: "/cases",
+      icon: ClipboardList,
+    },
+    {
+      name: "Doctors Queue",
       url: "/cases",
       icon: ClipboardList,
     },
@@ -57,11 +72,6 @@ const data = {
       name: "Procedures",
       url: "/procedure",
       icon: FileCog,         // ⚙️ file/settings style
-    },
-    {
-      name: "Packages",
-      url: "/packages",
-      icon: Package,         // 📦 package box
     },
     {
       name: "Doctor List",

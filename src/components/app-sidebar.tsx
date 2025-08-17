@@ -1,16 +1,15 @@
 import * as React from "react"
 import {
-  LayoutDashboard,
-  ClipboardList,
-  Stethoscope,
+  LayoutDashboard,   // Dashboard
+  ClipboardList,     // Queue
+  Stethoscope,       // Doctors
   GalleryVerticalEnd,
   Settings2,
-  FileCog,        // for Procedures
-  Package,        // for Packages
-  UserRound,      // for Patients (less generic than Users group icon)
-  Key
+  FileCog,           // Procedures
+  Users,             // Patients List 👥
+  UserPlus,          // Add Patient ➕👤
+  KeySquare,         // External Access 🔑
 } from "lucide-react"
-
 
 import { NavMain } from "@/components/nav-main"
 import { NavUser } from "@/components/nav-user"
@@ -45,18 +44,18 @@ const data = {
     },
     {
       name: "Queue Dashboard",
-      url: "/app",
-      icon: LayoutDashboard,
+      url: "/queue",
+      icon: ClipboardList,
     },
     {
       name: "Add Patient",
       url: "/add-patient",
-      icon: UserRound,       // 👤 single person
+      icon: UserPlus,       // 👤➕ add
     },
     {
-      name: "Patient Queue",
-      url: "/cases",
-      icon: ClipboardList,
+      name: "Patients List",
+      url: "/patient",
+      icon: Users,          // 👥 group
     },
     {
       name: "Doctors Queue",
@@ -64,24 +63,19 @@ const data = {
       icon: ClipboardList,
     },
     {
-      name: "Patients List",
-      url: "/patient",
-      icon: UserRound,       // 👤 single person
+      name: "Doctor List",
+      url: "/doctors",
+      icon: Stethoscope,    // 🩺
     },
     {
       name: "Procedures",
       url: "/procedure",
-      icon: FileCog,         // ⚙️ file/settings style
-    },
-    {
-      name: "Doctor List",
-      url: "/doctors",
-      icon: Stethoscope,     // 🩺
+      icon: FileCog,        // ⚙️📄
     },
     {
       name: "Generate External Access",
-      url: "/doctors",
-      icon: Key,     // 🩺
+      url: "/access",
+      icon: KeySquare,      // 🔑 box
     },
     {
       title: "Settings",
@@ -93,10 +87,8 @@ const data = {
         { title: "Users List", url: "/settings/users" },
       ],
     },
-  ]
-
+  ],
 }
-
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (

@@ -8,6 +8,13 @@ import CaseList from "@/pages/Cases/CaseList";
 import PatientList from "@/pages/Patient/PatientList";
 import Procedure from "@/pages/Procedures/Procedure";
 import Dashboard from "@/pages/Dashboard/Dashboard";
+import DashboardQueue from "@/pages/Dashboard/DashboardQueue";
+import PatientAdd from "@/pages/Patient/PatientAdd";
+import DoctorList from "@/pages/Doctor/DoctorList";
+import ExternalAccess from "@/pages/ExternalAccess/ExternalAccess";
+import Department from "@/pages/Settings/Department";
+import Branch from "@/pages/Settings/Branch";
+import UserList from "@/pages/Settings/UserList";
 
 const routes: RouteObject[] = [
     // auth route (outside sidebar)
@@ -25,10 +32,17 @@ const routes: RouteObject[] = [
                 path: "",
                 element: <SidebarPage />,
                 children: [
-                    { path: "app", element: <Dashboard/> },   // /app
+                    { path: "app", element: <Dashboard /> },   // /app
                     { path: "cases", element: <CaseList /> },  // /cases
                     { path: "patient", element: <PatientList /> },  // /cases
                     { path: "procedure", element: <Procedure /> },  // /cases
+                    { path: "dashboard-queue", element: <DashboardQueue /> },  // /cases
+                    { path: "patient-add", element: <PatientAdd /> },  // /cases
+                    { path: "doctor-list", element: <DoctorList /> },  // /cases
+                    { path: "external-access", element: <ExternalAccess /> },  // /cases
+                    { path: "settings/department", element: <Department /> },  // /cases
+                    { path: "settings/branch", element: <Branch /> },  // /cases
+                    { path: "settings/users-list", element: <UserList /> },  // /cases
 
                     // add the rest when ready:
                     // { path: "patients", element: <Patients /> },        // /patients

@@ -44,12 +44,12 @@ const data = {
     },
     {
       name: "Queue Dashboard",
-      url: "/queue",
+      url: "/dashboard-queue",
       icon: ClipboardList,
     },
     {
       name: "Add Patient",
-      url: "/add-patient",
+      url: "/patient-add",
       icon: UserPlus,       // 👤➕ add
     },
     {
@@ -64,7 +64,7 @@ const data = {
     },
     {
       name: "Doctor List",
-      url: "/doctors",
+      url: "/doctor-list",
       icon: Stethoscope,    // 🩺
     },
     {
@@ -74,7 +74,7 @@ const data = {
     },
     {
       name: "Generate External Access",
-      url: "/access",
+      url: "/external-access",
       icon: KeySquare,      // 🔑 box
     },
     {
@@ -84,7 +84,7 @@ const data = {
       items: [
         { title: "Department", url: "/settings/department" },
         { title: "Branch", url: "/settings/branch" },
-        { title: "Users List", url: "/settings/users" },
+        { title: "Users List", url: "/settings/users-list" },
       ],
     },
   ],

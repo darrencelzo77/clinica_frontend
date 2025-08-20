@@ -27,7 +27,7 @@ const initialPatients = [
 ];
 
 const PatientList = () => {
-    const [patients, setPatients] = useState(initialPatients);
+    const [patients] = useState(initialPatients);
 
     const handleViewHistory = (patient: typeof initialPatients[0]) => {
         alert(`View history for ${patient.firstName} ${patient.lastName}`);

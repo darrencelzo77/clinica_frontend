@@ -1,7 +1,6 @@
 import { memo } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { MoreHorizontal } from "lucide-react";
 
 const DoctorList = () => {
   const doctors = [

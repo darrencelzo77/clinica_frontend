@@ -76,7 +76,7 @@ export function ReusableTable<TData, TValue>({
         },
         initialState: {
             pagination: {
-                pageSize: 15, // default page size
+                pageSize: 10, // default page size
                 pageIndex: 0,
             },
         },
@@ -90,7 +90,7 @@ export function ReusableTable<TData, TValue>({
         getFilteredRowModel: getFilteredRowModel(),
     })
 
-    const pageSizes = ["ALL", 10, 15, 50, 100]
+    const pageSizes = ["ALL", 10, 50, 100]
 
     return (
         <div className="w-full">
@@ -157,10 +157,11 @@ export function ReusableTable<TData, TValue>({
 
                     <TableBody>
                         {table.getRowModel().rows.length ? (
-                            table.getRowModel().rows.map((row) => (
+                            table.getRowModel().rows.map((row, rowIndex) => (
                                 <TableRow
                                     key={row.id}
                                     data-state={row.getIsSelected() && "selected"}
+                                    className={rowIndex % 2 === 0 ? "bg-muted/50" : ""} // striped effect
                                 >
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell key={cell.id}>

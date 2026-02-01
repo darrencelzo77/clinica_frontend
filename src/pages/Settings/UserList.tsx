@@ -1,54 +1,37 @@
-import { memo, useState } from "react";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
+import { memo } from "react"
+import { ReusableTable } from "@/components/reusable/Table/ReusableTable"
 
-const initialUsers = [
+import { DialogPage } from "@/components/reusable/DialogPage"
+import { Button } from "@/components/ui/button"
+import { IconGitBranch } from "@tabler/icons-react"
+import type { UserData } from "@/types/type"
+import { columns } from "./DepartmentColumn"
+
+const data: UserData[] = [
   { id: 1, name: "Gwen Aris Macalinao" },
   { id: 2, name: "Darren Acuna" },
-];
+]
 
 const UserList = () => {
-  const [users, setUsers] = useState(initialUsers);
-
-  const handleEdit = (userId: number) => {
-    const newName = prompt("Edit User Name:", users.find(u => u.id === userId)?.name);
-    if (newName) {
-      setUsers((prev) =>
-        prev.map((u) => (u.id === userId ? { ...u, name: newName } : u))
-      );
-    }
-  };
-
   return (
-    <div className="UserList space-y-4 p-4">
-      <h2 className="text-xl font-semibold">User List</h2>
-
-      <div className="overflow-x-auto rounded-md border">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>No.</TableHead>
-              <TableHead>User Name</TableHead>
-              <TableHead>Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {users.map((user, index) => (
-              <TableRow key={user.id}>
-                <TableCell className="text-center">{index + 1}</TableCell>
-                <TableCell>{user.name}</TableCell>
-                <TableCell>
-                  <Button size="sm" variant="outline" onClick={() => handleEdit(user.id)}>
-                    Edit
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <h2 className="text-xl font-semibold">User List</h2>
+        <DialogPage>
+          <Button size="sm">
+            <IconGitBranch className="mr-2 h-4 w-4" />
+            Add User
+          </Button>
+        </DialogPage>
       </div>
-    </div>
-  );
-};
 
-export default memo(UserList);
+      <ReusableTable
+        columns={columns}
+        data={data}
+        filterColumn="name"
+      />
+    </div>
+  )
+}
+
+export default memo(UserList)

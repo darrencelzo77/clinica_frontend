@@ -1,73 +1,95 @@
-import { memo, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { memo, useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 
 const ExternalAccess = () => {
-  const [doctorEmail, setDoctorEmail] = useState("");
-  const [accessLink, setAccessLink] = useState("");
+  const [doctorEmail, setDoctorEmail] = useState("")
+  const [accessLink, setAccessLink] = useState("")
 
-  // Generate a random access link
   const generateAccessLink = () => {
-    const token = Math.random().toString(36).substring(2, 10).toUpperCase();
-    const link = `http://localhost:3000/${token}`;
-    setAccessLink(link);
-  };
+    const token = Math.random().toString(36).substring(2, 10).toUpperCase()
+    const link = `https://yourdomain.com/external/${token}`
+    setAccessLink(link)
+  }
 
   const sendAccessLink = () => {
-    if (!doctorEmail) {
-      alert("Please enter doctor email");
-      return;
-    }
-    if (!accessLink) {
-      alert("Please generate access link first");
-      return;
-    }
-    // Integrate your email API or other sending logic here
-    alert(`Access link ${accessLink} sent to ${doctorEmail}`);
-    setDoctorEmail("");
-    setAccessLink("");
-  };
+    if (!doctorEmail || !accessLink) return
+    alert(`Access link sent to ${doctorEmail}`)
+    setDoctorEmail("")
+    setAccessLink("")
+  }
 
   const copyLink = () => {
-    if (accessLink) {
-      navigator.clipboard.writeText(accessLink);
-      alert("Link copied to clipboard!");
-    }
-  };
+    if (!accessLink) return
+    navigator.clipboard.writeText(accessLink)
+    alert("Link copied to clipboard")
+  }
 
   return (
-    <div className="ExternalAccess space-y-4 p-4 border rounded-md max-w-md">
-      <h2 className="text-xl font-semibold">External Access</h2>
-
-      <div className="grid gap-2">
-        <label htmlFor="doctorEmail" className="font-medium">Doctor Email</label>
-        <Input
-          id="doctorEmail"
-          type="email"
-          placeholder="doctor@example.com"
-          value={doctorEmail}
-          onChange={(e) => setDoctorEmail(e.target.value)}
-        />
-      </div>
-
-      <div className="flex items-center gap-2">
-        <Button onClick={generateAccessLink} variant="outline">Generate Access Link</Button>
-        {accessLink && (
-          <Button onClick={copyLink} variant="secondary">Copy Link</Button>
-        )}
-      </div>
-
-      {accessLink && (
-        <div className="text-blue-600 font-medium break-all">
-          <a href={accessLink} target="_blank" rel="noopener noreferrer">{accessLink}</a>
+    <div className="flex min-h-screen items-center justify-center px-4">
+      <div className="w-full max-w-md space-y-6 rounded-xl ">
+        <div className="text-center space-y-1">
+          <h2 className="text-xl font-semibold">External Access</h2>
+          <p className="text-sm text-muted-foreground">
+            Generate a secure external link for doctors
+          </p>
         </div>
-      )}
 
-      <Button onClick={sendAccessLink} disabled={!accessLink || !doctorEmail}>
-        Send to Doctor
-      </Button>
+        {/* Email */}
+        <div className="space-y-2">
+          <label className="text-sm font-medium">Doctor Email</label>
+          <Input
+            type="email"
+            placeholder="doctor@example.com"
+            value={doctorEmail}
+            onChange={(e) => setDoctorEmail(e.target.value)}
+          />
+        </div>
+
+        {/* Generate / Copy */}
+        <div className="flex gap-2">
+          <Button
+            className="flex-1"
+            variant="outline"
+            onClick={generateAccessLink}
+          >
+            Generate Link
+          </Button>
+
+          <Button
+            variant="secondary"
+            onClick={copyLink}
+            disabled={!accessLink}
+          >
+            Copy
+          </Button>
+        </div>
+
+        {/* Generated Link */}
+        {accessLink && (
+          <div className="rounded-md border bg-muted p-3 text-sm break-all text-center">
+            <a
+              href={accessLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:underline"
+            >
+              {accessLink}
+            </a>
+          </div>
+        )}
+
+        {/* Send */}
+        <Button
+          className="w-full"
+          onClick={sendAccessLink}
+          disabled={!doctorEmail || !accessLink}
+        >
+          Send Access Link
+        </Button>
+      </div>
     </div>
-  );
-};
+  )
+}
 
-export default memo(ExternalAccess);
+export default memo(ExternalAccess)

@@ -52,8 +52,8 @@ const data = {
       icon: ClipboardList,
     },
     {
-      name: "Doctor List",
-      url: "/doctor-list",
+      name: "Employee List",
+      url: "/employee-list",
       icon: Stethoscope,    // 🩺
     },
     {

@@ -4,10 +4,10 @@ import { ReusableTable } from "@/components/reusable/Table/ReusableTable"
 import { Button } from "@/components/ui/button"
 import { IconGitBranch } from "@tabler/icons-react"
 import { columns } from "./Columns"
-import type { CaseRow } from "@/types/type"
+import type { CaseData } from "@/types/type"
 
 
-const data: CaseRow[] = [
+const data: CaseData[] = [
     {
         id: "1",
         caseNumber: "CASE-1001",
@@ -265,30 +265,7 @@ const data: CaseRow[] = [
         processedBy: "Nurse Faith",
         status: "in-progress",
     },
-    {
-        id: "2",
-        caseNumber: "CASE-1002",
-        patientName: "Ben Cruz",
-        doctorAssigned: "Dr. Reyes",
-        processedBy: "Nurse Faith",
-        status: "in-progress",
-    },
-    {
-        id: "2",
-        caseNumber: "CASE-1002",
-        patientName: "Ben Cruz",
-        doctorAssigned: "Dr. Reyes",
-        processedBy: "Nurse Faith",
-        status: "in-progress",
-    },
-    {
-        id: "2",
-        caseNumber: "CASE-1002",
-        patientName: "Ben Cruz",
-        doctorAssigned: "Dr. Reyes",
-        processedBy: "Nurse Faith",
-        status: "in-progress",
-    },
+
 ]
 
 const CaseList = () => {

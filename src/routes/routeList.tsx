@@ -10,11 +10,12 @@ import Procedure from "@/pages/Procedures/Procedure";
 import Dashboard from "@/pages/Dashboard/Dashboard";
 // import DashboardQueue from "@/pages/Dashboard/DashboardQueue";
 // import PatientAdd from "@/pages/Patient/PatientAdd";
-import DoctorList from "@/pages/Doctor/DoctorList";
+// import DoctorList from "@/pages/Employee/EmployeeList";
 import ExternalAccess from "@/pages/ExternalAccess/ExternalAccess";
 import Department from "@/pages/Settings/Department";
 import Branch from "@/pages/Settings/Branch";
 import UserList from "@/pages/Settings/UserList";
+import EmployeeList from "@/pages/Employee/EmployeeList";
 
 const routes: RouteObject[] = [
     // auth route (outside sidebar)
@@ -36,7 +37,7 @@ const routes: RouteObject[] = [
                     { path: "cases", element: <CaseList /> },  // /cases
                     { path: "patient", element: <PatientList /> },  // /cases
                     { path: "procedure", element: <Procedure /> },  // /cases
-                    { path: "doctor-list", element: <DoctorList /> },  // /cases
+                    { path: "employee-list", element: <EmployeeList /> },  // /cases
                     { path: "external-access", element: <ExternalAccess /> },  // /cases
                     { path: "settings/department", element: <Department /> },  // /cases
                     { path: "settings/branch", element: <Branch /> },  // /cases

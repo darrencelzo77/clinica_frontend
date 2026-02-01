@@ -1,54 +1,37 @@
-import { memo, useState } from "react";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
+import { memo } from "react"
+import { ReusableTable } from "@/components/reusable/Table/ReusableTable"
+import type { BranchData } from "@/types/type"
+import { columns } from "./BranchColumn"
+import { DialogPage } from "@/components/reusable/DialogPage"
+import { Button } from "@/components/ui/button"
+import { IconGitBranch } from "@tabler/icons-react"
 
-const initialBranches = [
+const data: BranchData[] = [
   { id: 1, name: "Cabanatuan" },
   { id: 2, name: "Nueva Ecija" },
-];
+  { id: 2, name: "Manila" },
+]
 
 const Branch = () => {
-  const [branches, setBranches] = useState(initialBranches);
-
-  const handleEdit = (branchId: number) => {
-    const newName = prompt("Edit Branch Name:", branches.find(b => b.id === branchId)?.name);
-    if (newName) {
-      setBranches((prev) =>
-        prev.map((b) => (b.id === branchId ? { ...b, name: newName } : b))
-      );
-    }
-  };
-
   return (
-    <div className="Branch space-y-4 p-4">
-      <h2 className="text-xl font-semibold">Branches</h2>
-
-      <div className="overflow-x-auto rounded-md border">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>No.</TableHead>
-              <TableHead>Branch Name</TableHead>
-              <TableHead>Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {branches.map((branch, index) => (
-              <TableRow key={branch.id}>
-                <TableCell className="text-center">{index + 1}</TableCell>
-                <TableCell>{branch.name}</TableCell>
-                <TableCell>
-                  <Button size="sm" variant="outline" onClick={() => handleEdit(branch.id)}>
-                    Edit
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <h2 className="text-xl font-semibold">Branches</h2>
+        <DialogPage>
+          <Button size="sm">
+            <IconGitBranch className="mr-2 h-4 w-4" />
+            Add Branch
+          </Button>
+        </DialogPage>
       </div>
-    </div>
-  );
-};
 
-export default memo(Branch);
+      <ReusableTable
+        columns={columns}
+        data={data}
+        filterColumn="name"
+      />
+    </div>
+  )
+}
+
+export default memo(Branch)

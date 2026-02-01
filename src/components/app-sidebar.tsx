@@ -7,7 +7,6 @@ import {
   Settings2,
   FileCog,           // Procedures
   Users,             // Patients List 👥
-  UserPlus,          // Add Patient ➕👤
   KeySquare,         // External Access 🔑
 } from "lucide-react"
 
@@ -41,16 +40,6 @@ const data = {
       name: "Dashboard",
       url: "/app",
       icon: LayoutDashboard,
-    },
-    {
-      name: "Queue Dashboard",
-      url: "/dashboard-queue",
-      icon: ClipboardList,
-    },
-    {
-      name: "Add Patient",
-      url: "/patient-add",
-      icon: UserPlus,       // 👤➕ add
     },
     {
       name: "Patients List",

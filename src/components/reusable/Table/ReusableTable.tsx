@@ -12,7 +12,7 @@ import {
     useReactTable,
 } from "@tanstack/react-table"
 
-
+// shadcn Select
 import {
     Select,
     SelectContent,
@@ -21,7 +21,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 
-// type-only imports (verbatimModuleSyntax safe)
+// type-only imports
 import type {
     ColumnDef,
     ColumnFiltersState,
@@ -76,7 +76,7 @@ export function ReusableTable<TData, TValue>({
         },
         initialState: {
             pagination: {
-                pageSize: 15, // ✅ DEFAULT PAGE SIZE
+                pageSize: 15, // default page size
                 pageIndex: 0,
             },
         },
@@ -89,6 +89,8 @@ export function ReusableTable<TData, TValue>({
         getSortedRowModel: getSortedRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
     })
+
+    const pageSizes = ["ALL", 10, 15, 50, 100]
 
     return (
         <div className="w-full">
@@ -183,6 +185,7 @@ export function ReusableTable<TData, TValue>({
                     </TableBody>
                 </Table>
             </div>
+
             {/* Footer */}
             <div className="flex flex-wrap items-center justify-between gap-4 py-4 text-sm text-muted-foreground">
                 {/* Left: page size + entries info */}
@@ -191,28 +194,34 @@ export function ReusableTable<TData, TValue>({
                     <div className="flex items-center gap-2">
                         <span>Show</span>
                         <Select
-                            value={String(table.getState().pagination.pageSize)}
+                            value={
+                                table.getState().pagination.pageSize === data.length
+                                    ? "ALL"
+                                    : String(table.getState().pagination.pageSize)
+                            }
                             onValueChange={(value) => {
-                                table.setPageSize(Number(value))
+                                table.setPageSize(
+                                    value === "ALL" ? data.length : Number(value)
+                                )
                             }}
                         >
                             <SelectTrigger className="h-8 w-[80px]">
                                 <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
-                                {[10, 20, 50, 100].map((size) => (
-                                    <SelectItem key={size} value={String(size)}>
+                                {pageSizes.map((size) => (
+                                    <SelectItem key={size} value={size.toString()}>
                                         {size}
                                     </SelectItem>
                                 ))}
                             </SelectContent>
                         </Select>
-                        <span>entries</span>
+                        {/* <span>entries</span> */}
                     </div>
 
                     {/* Entries info */}
                     <div>
-                        Showing{" "}
+                        {/* Showing{" "} */}
                         {table.getState().pagination.pageIndex *
                             table.getState().pagination.pageSize +
                             1}
@@ -252,7 +261,6 @@ export function ReusableTable<TData, TValue>({
                     </Button>
                 </div>
             </div>
-
         </div>
     )
 }

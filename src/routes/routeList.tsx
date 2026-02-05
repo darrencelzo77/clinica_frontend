@@ -16,6 +16,8 @@ import Department from "@/pages/Settings/Department";
 import Branch from "@/pages/Settings/Branch";
 import UserList from "@/pages/Settings/UserList";
 import EmployeeList from "@/pages/Employee/EmployeeList";
+// import Queueing from "@/pages/Queue/Index";
+import  { Queueing1, Queueing2, Queueing3 } from "@/pages/Queue/Index";
 
 const routes: RouteObject[] = [
     // auth route (outside sidebar)
@@ -34,6 +36,9 @@ const routes: RouteObject[] = [
                 element: <SidebarPage />,
                 children: [
                     { path: "app", element: <Dashboard /> },   // /app
+                    { path: "queue1", element: <Queueing1 /> },   // /app
+                    { path: "queue2", element: <Queueing2 /> },   // /app
+                    { path: "queue3", element: <Queueing3 /> },   // /app
                     { path: "cases", element: <CaseList /> },  // /cases
                     { path: "patient", element: <PatientList /> },  // /cases
                     { path: "procedure", element: <Procedure /> },  // /cases

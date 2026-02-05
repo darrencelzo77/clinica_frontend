@@ -1,8 +1,10 @@
-import type { ColumnDef } from "@tanstack/react-table"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Button } from "@/components/ui/button"
-import { ArrowUpDown } from "lucide-react"
-import type { PatientData } from "@/types/type"
+import type { ColumnDef } from "@tanstack/react-table";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import type { PatientData } from "@/types/type";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
+import { ServicesModal } from "./ServicesModal";
 
 export const columns: ColumnDef<PatientData>[] = [
     {
@@ -13,9 +15,7 @@ export const columns: ColumnDef<PatientData>[] = [
                     table.getIsAllPageRowsSelected() ||
                     (table.getIsSomePageRowsSelected() && "indeterminate")
                 }
-                onCheckedChange={(value) =>
-                    table.toggleAllPageRowsSelected(!!value)
-                }
+                onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
                 aria-label="Select all"
             />
         ),
@@ -35,9 +35,7 @@ export const columns: ColumnDef<PatientData>[] = [
         header: ({ column }) => (
             <Button
                 variant="ghost"
-                onClick={() =>
-                    column.toggleSorting(column.getIsSorted() === "asc")
-                }
+                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
             >
                 Series ID
                 <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -45,28 +43,48 @@ export const columns: ColumnDef<PatientData>[] = [
         ),
     },
 
-    {
-        accessorKey: "firstName",
-        header: "First Name",
-    },
+    { accessorKey: "firstName", header: "First Name" },
+    { accessorKey: "middleName", header: "Middle Name" },
+    { accessorKey: "lastName", header: "Last Name" },
+    { accessorKey: "processedBy", header: "Processed By" },
+    { accessorKey: "status", header: "Status" },
 
     {
-        accessorKey: "middleName",
-        header: "Middle Name",
-    },
+        id: "actions",
+        enableHiding: false,
+        cell: ({ row }) => {
+            const caseRow = row.original; // ✅ FIXED
 
-    {
-        accessorKey: "lastName",
-        header: "Last Name",
-    },
+            return (
+                <Popover>
+                    <PopoverTrigger asChild>
+                        <Button variant="ghost" className="h-3 w-8 p-0">
+                            <span className="sr-only">Open menu</span>
+                            <MoreHorizontal />
+                        </Button>
+                    </PopoverTrigger>
 
-    {
-        accessorKey: "processedBy",
-        header: "Processed By",
-    },
+                    <PopoverContent align="end" className="w-44 p-1">
+                        <div className="flex flex-col space-y-1">
+                            <span className="px-2 py-1 text-sm font-medium text-muted-foreground">
+                                Case Actions
+                            </span>
 
-    {
-        accessorKey: "status",
-        header: "Status",
+                            <ServicesModal
+                                trigger={
+                                    <Button
+                                        variant="ghost"
+                                        className="justify-start rounded-none"
+                                    >
+                                        Select Services
+                                    </Button>
+                                }
+                                rowData={caseRow} // optional if you want to pass patient info
+                            />
+                        </div>
+                    </PopoverContent>
+                </Popover>
+            );
+        },
     },
-]
+];

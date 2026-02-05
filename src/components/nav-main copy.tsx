@@ -1,5 +1,5 @@
 "use client"
-import { ChevronRight, Key, type LucideIcon } from "lucide-react" // 🔒 lock icon
+import { ChevronRight, type LucideIcon } from "lucide-react"
 import { NavLink, useLocation } from "react-router-dom"
 
 import {
@@ -23,9 +23,7 @@ type SimpleItem = {
   name?: string
   url: string
   icon?: LucideIcon
-  disabled?: boolean      // <-- add disabled property
-  tooltip?: string        // <-- optional tooltip
-  isActive?: boolean
+  isActive?: boolean // optional manual control
 }
 
 type ParentItem = SimpleItem & {
@@ -37,7 +35,7 @@ export function NavMain({ items }: { items: ParentItem[] }) {
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Menu</SidebarGroupLabel>
+      <SidebarGroupLabel>Platform</SidebarGroupLabel>
 
       <SidebarMenu>
         {items.map((item) => {
@@ -48,18 +46,17 @@ export function NavMain({ items }: { items: ParentItem[] }) {
             // Simple link (no dropdown)
             return (
               <SidebarMenuItem key={item.url || label}>
-                <NavLink to={item.disabled ? "#" : item.url} end>
+                <NavLink to={item.url} end>
                   {({ isActive }) => (
                     <SidebarMenuButton
                       asChild
-                      tooltip={item.disabled ? item.tooltip : label}
+                      tooltip={label}
+                      // router controls active unless manually forced
                       isActive={item.isActive ?? isActive}
-                      className={item.disabled ? "opacity-50 cursor-not-allowed" : ""}
                     >
                       <div className="flex items-center gap-2">
                         {item.icon && <item.icon />}
                         <span>{label}</span>
-                        {item.disabled && <Key className="w-4 h-4 text-gray-400 ml-auto" />} {/* lock */}
                       </div>
                     </SidebarMenuButton>
                   )}
@@ -82,14 +79,10 @@ export function NavMain({ items }: { items: ParentItem[] }) {
             >
               <SidebarMenuItem>
                 <CollapsibleTrigger asChild>
-                  <SidebarMenuButton
-                    tooltip={item.disabled ? item.tooltip : label}
-                    className={item.disabled ? "opacity-50 cursor-not-allowed" : ""}
-                  >
+                  <SidebarMenuButton tooltip={label} /* parent button not a link */>
                     {item.icon && <item.icon />}
                     <span>{label}</span>
                     <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                    {item.disabled && <Key className="w-4 h-4 text-gray-400 ml-2" />}
                   </SidebarMenuButton>
                 </CollapsibleTrigger>
 
